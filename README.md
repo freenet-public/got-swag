@@ -6,8 +6,6 @@ or in separate test suites.
 Includes command-line and programmatic interfaces.
 Install via `npm install got-swag -g`.
 
-<img src="img/swagmonkey.jpg" width="400">
-
 ## Usage
 
 ```
