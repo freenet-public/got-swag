@@ -1,0 +1,201 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+  license:
+    name: MIT
+basePath: /v1
+consumes:
+  - application/json
+produces:
+  - application/json
+x-vars:
+  katie:
+    id: 999
+    name: Katie
+    age: 3y
+  badKitty:
+    willBiteYou: true
+x-tests:
+  - description: Setup
+    steps:
+      - vars.test = 'test'
+paths:
+  /pets:
+    get:
+      summary: List all pets
+      operationId: listPets
+      tags:
+        - pets
+      security:
+        - app: []
+        - customer: []
+        - apiKey: []
+        - basic: []
+
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/Pets'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+      x-tests:
+        - description: Get as app
+          steps:
+          - auth( 'app', vars.auth.myApp )
+          - match( authOptions.headers.Authorization, /^Bearer/ )
+          - get()
+          - validate()
+          - match( req.headers.Authorization, /^Bearer/ )
+          - equal( res.status, 200 )
+          - equal( res.json[ 0 ].name, 'kathi' )
+          - vars.petId = res.json[ 0 ].id
+        - description: Get as customer
+          steps:
+          - auth( 'customer', vars.auth.myPassword )
+          - match( authOptions.headers.Authorization, /^Bearer/ )
+          - get()
+          - equal( res.status, 200 )
+          - equal( res.json[ 0 ].name, 'kathi' )
+          - vars.petId = res.json[ 0 ].id
+        - description: Get with API key
+          steps:
+          - auth( 'apiKey', vars.auth.myApiKey )
+          - equal( authOptions.headers[ 'X-Api-Key' ], 1337 )
+          - get()
+          - equal( res.status, 200 )
+          - equal( res.json[ 0 ].name, 'kathi' )
+          - vars.petId = res.json[ 0 ].id
+        - description: Re-use a test
+          steps:
+            $ref: '#/x-tests/0/steps'
+    post:
+      summary: Create a pet
+      operationId: createPets
+      tags:
+        - pets
+      security:
+        - customer: []
+        - basic: []
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Pet'
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+      x-tests:
+        - steps:
+            - auth( 'basic', vars.auth.myBasic )
+            - post( null, vars.katie )
+            - equal( res.status, 201 )
+            - validate()
+        - steps:
+            - post( null, vars.badKitty )
+            - log( res )
+            - equal( res.status, 400 )
+            - validate()
+
+  /pets/{petId}:
+    get:
+      summary: Info for a specific pet
+      operationId: showPetById
+      tags:
+        - pets
+      security:
+        - app: []
+        - customer: []
+        - apiKey: []
+        - basic: []
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          description: The id of the pet to retrieve
+          type: string
+      responses:
+        200:
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Pet'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+      x-tests:
+        - cases:
+            - description: One
+              number: 1
+            - description: Two
+              number: 2
+            - number: 3
+          steps:
+            - equal( vars.test, 'test' )
+            - log( data.number )
+            - ok( data.number < 4 )
+
+definitions:
+  Pet:
+    required:
+      - id
+      - name
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      tag:
+        type: string
+  Pets:
+    type: array
+    items:
+      $ref: '#/definitions/Pet'
+  Error:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+
+securityDefinitions:
+  app:
+    type: oauth2
+    flow: application
+    tokenUrl: http://localhost:8001/v1/oauth2/token
+    scopes:
+      pets: Kittens lol
+  customer:
+    type: oauth2
+    flow: password
+    tokenUrl: http://localhost:8001/v1/oauth2/token
+  apiKey:
+    type: apiKey
+    name: X-Api-Key
+    in: header
+  basic:
+    type: basic

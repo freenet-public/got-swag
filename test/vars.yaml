@@ -1,0 +1,15 @@
+x-vars:
+  auth:
+    myApp:
+      key: siegmeyer
+      secret: catarina
+    myPassword:
+      key: siegmeyer
+      secret: catarina
+      username: basil
+      password: smash
+    myApiKey:
+      key: 1337
+    myBasic:
+      username: basil
+      password: smash

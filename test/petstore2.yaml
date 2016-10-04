@@ -1,0 +1,19 @@
+'#/':
+  $ref: http://localhost:8000/api-docs
+'#/host': localhost:8000
+'#/x-vars/george':
+  id: 73
+  age: 6y
+  name: George
+'#/x-vars/george ':
+  $assign:
+    cool: true
+'#/paths/__pets/get/x-tests':
+  $push:
+    description: Extension
+    steps:
+      - equal( vars.george.age, '6y' )
+      - ok( vars.george.cool )
+'#/paths/__pets/get/x-tests/0/steps/4': log( 'lol' )
+'#/paths/__pets/get/x-tests/1/steps/4': log( 'lol' )
+'#/paths/__pets/post/x-tests/0/steps/2': log( 'bar' )

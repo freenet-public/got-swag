@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+var gotSwag = require( '../' );
+
+gotSwag.dispatch( process.argv.slice( 2 ) ).catch( function ( err ) {
+  // exit code 2 if an error occured
+  console.error( err.message );
+  process.exit( 2 );
+} );

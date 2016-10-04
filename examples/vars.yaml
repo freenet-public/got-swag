@@ -1,0 +1,6 @@
+x-vars:
+  auth:
+    mashape:
+      key: 1MIoJYAcmjmshMFpTOMIGSA0sMRRp1Rx6qSjsnLxdisqoTcYJc
+    petstore:
+      key: special-key

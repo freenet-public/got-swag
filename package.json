@@ -1,0 +1,31 @@
+{
+  "name": "got-swag",
+  "version": "1.0.0",
+  "description": "Got Swag? A tool to test Swagger-powered APIs automatically",
+  "author": "Morris Brodersen <mb@morrisbrodersen.de> (http://morrisbrodersen.de)",
+  "license": "MIT",
+  "repository": "https://github.com/mobilcom-debitel/got-swag",
+  "bin": {
+    "got-swag": "./bin/got-swag"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha test"
+  },
+  "dependencies": {
+    "json-schema-ref-parser": "^3.1.2",
+    "jsonschema": "^1.1.0",
+    "lodash": "^4.13.1",
+    "minimist": "^1.2.0",
+    "mocha": "^2.5.3"
+  },
+  "devDependencies": {
+    "express": "^4.14.0",
+    "istanbul": "^0.4.4",
+    "mocha": "^3.1.0",
+    "swagger-express-middleware": "^1.0.0-alpha.12"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  }
+}

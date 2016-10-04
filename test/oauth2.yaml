@@ -1,0 +1,91 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: OAuth2 Service (only for pet owners plz)
+  license:
+    name: MIT
+basePath: /v1/oauth2
+schemes:
+  - http
+paths:
+  /token:
+    post:
+      summary: Create a token
+      operationId: createToken
+      tags:
+        - OAuth2
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: grant_type
+          in: formData
+          type: string
+          required: true
+        - name: code
+          in: formData
+          type: string
+        - name: redirect_uri
+          in: formData
+          type: string
+        - name: scope
+          in: formData
+          type: string
+        - name: refresh_token
+          in: formData
+          type: string
+        - name: client_id
+          in: formData
+          type: string
+        - name: client_secret
+          in: formData
+          type: string
+        - name: username
+          in: formData
+          type: string
+        - name: password
+          in: formData
+          type: string
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/TokenResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+
+definitions:
+  TokenResponse:
+    required:
+      - access_token
+      - token_type
+      - expires_in
+    properties:
+      access_token:
+        type: string
+      token_type:
+        type: string
+      refresh_token:
+        type: string
+      scope:
+        type: string
+      expires_in:
+        type: integer
+      refresh_token_expires_in:
+        type: integer
+  Error:
+    required:
+      - error
+      - error_description
+    properties:
+      error:
+        type: string
+      error_description:
+        type: string

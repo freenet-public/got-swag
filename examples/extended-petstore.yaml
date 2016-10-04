@@ -1,0 +1,38 @@
+# Extension syntax example
+# got-swag examples/extended-petstore.yaml
+
+# import an existing swagger file into root
+'#/':
+  $ref: http://petstore.swagger.io/v2/swagger.json
+
+# set a new variable
+'#/x-vars/george':
+  id: 73
+  age: 6y
+  name: George
+# append spaces to have multiple actions on the same path
+'#/x-vars/george ':
+  # $assign extends the original object (shallow)
+  $assign:
+    cool: true
+# slahes must be written as double underscores!
+'#/paths/__pet__findByStatus/get/x-tests':
+  - description: Should find pets
+    steps:
+      - get( '/v2/pet/findByStatus?status=available' )
+      - log( res.json[ 0 ] )
+      - equal( res.status, 200 )
+      - ok( res.json.length > 0 )
+      - equal( typeof res.json[ 0 ].name, 'string' )
+      - validate()
+  - description: Should not find evil pets
+    steps:
+      - get( '/v2/pet/findByStatus?status=evil' )
+      - deepEqual( res.json, [] )
+      - validate()
+
+# special actions:
+# $assign will do a shallow extend
+# $merge will do a deep extend
+# $push will append to an array
+# $unshift will prepend to an array
