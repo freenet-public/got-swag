@@ -1,5 +1,5 @@
 # Basic example
-# got-swag examples/yoda.yaml examples/monkeystore.yaml -t 5000
+# got-swag examples/yoda.yaml examples/vars.yaml -t 5000
 
 x-tests:
 
