@@ -13,3 +13,6 @@ x-vars:
     myBasic:
       username: basil
       password: smash
+  monkey:
+    - petId: 4
+    - petId: ev?il%id
