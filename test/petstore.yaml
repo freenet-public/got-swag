@@ -49,6 +49,10 @@ paths:
               description: A link to the next page of responses
           schema:
             $ref: '#/definitions/Pets'
+          examples:
+            application/json:
+              - { "id": 4, "name": "George" }
+              - { "id": 5, "name": "Katie" }
         default:
           description: unexpected error
           schema:
@@ -163,14 +167,20 @@ definitions:
       id:
         type: integer
         format: int64
+        example: 4
       name:
         type: string
+        example: Lissy
       tag:
         type: string
+        example: Big
   Pets:
     type: array
     items:
       $ref: '#/definitions/Pet'
+    example:
+      - { "id": 666, "name": "Beast" }
+      - { "id": 27, "name": "Bolero" }
   Error:
     required:
       - code
