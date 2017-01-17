@@ -16,3 +16,4 @@ x-vars:
   monkey:
     - petId: 4
     - petId: ev?il%id
+    - petId: gimme5
