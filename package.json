@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "json-schema-ref-parser": "^3.1.2",
-    "jsonschema": "^1.1.0",
-    "lodash": "^4.13.1",
+    "jsonschema": "^1.1.1",
+    "lodash": "^4.17.4",
     "minimist": "^1.2.0",
-    "mocha": "^2.5.3"
+    "mocha": "^3.2.0"
   },
   "devDependencies": {
     "express": "^4.14.0",
