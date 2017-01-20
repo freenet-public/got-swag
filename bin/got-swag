@@ -3,7 +3,7 @@
 var gotSwag = require( '../' );
 
 gotSwag.dispatch( process.argv.slice( 2 ) ).catch( function ( err ) {
-  // exit code 2 on error
+  // Exit code 2 on error
   console.error( err.message );
   process.exit( 2 );
 } );

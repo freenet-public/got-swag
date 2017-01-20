@@ -1,0 +1,10 @@
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+# editorconfig.org
+root = true
+
+[got-swag]
+# bin scripts (node scripts with shebang) must not have DOS formatted line
+# endings. Use LF instead, see https://github.com/npm/npm/issues/4607
+end_of_line = lf
+charset = utf-8

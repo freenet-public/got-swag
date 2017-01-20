@@ -1,0 +1,3 @@
+# Force LF for the bin script
+# See https://github.com/npm/npm/issues/4607
+got-swag eol=lf
