@@ -1,6 +1,6 @@
 {
   "name": "got-swag",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Got Swag? A tool to test Swagger-powered APIs automatically",
   "author": "Morris Brodersen <mb@morrisbrodersen.de> (http://morrisbrodersen.de)",
   "license": "MIT",
