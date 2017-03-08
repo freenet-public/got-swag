@@ -60,33 +60,40 @@ paths:
       x-tests:
         - description: Get as app
           steps:
-          - auth( 'app', vars.auth.myApp )
-          - match( authOptions.headers.Authorization, /^Bearer/ )
-          - get()
-          - validate()
-          - match( req.headers.Authorization, /^Bearer/ )
-          - equal( res.status, 200 )
-          - equal( res.json[ 0 ].name, 'kathi' )
-          - vars.petId = res.json[ 0 ].id
+            - auth( 'app', vars.auth.myApp )
+            - match( authOptions.headers.Authorization, /^Bearer/ )
+            - get()
+            - validate()
+            - match( req.headers.Authorization, /^Bearer/ )
+            - equal( res.status, 200 )
+            - equal( res.json[ 0 ].name, 'kathi' )
+            - vars.petId = res.json[ 0 ].id
         - description: Get as customer
           steps:
-          - auth( 'customer', vars.auth.myPassword )
-          - match( authOptions.headers.Authorization, /^Bearer/ )
-          - get()
-          - equal( res.status, 200 )
-          - equal( res.json[ 0 ].name, 'kathi' )
-          - vars.petId = res.json[ 0 ].id
+            - auth( 'customer', vars.auth.myPassword )
+            - match( authOptions.headers.Authorization, /^Bearer/ )
+            - get()
+            - equal( res.status, 200 )
+            - equal( res.json[ 0 ].name, 'kathi' )
+            - vars.petId = res.json[ 0 ].id
         - description: Get with API key
           steps:
-          - auth( 'apiKey', vars.auth.myApiKey )
-          - equal( authOptions.headers[ 'X-Api-Key' ], 1337 )
-          - get()
-          - equal( res.status, 200 )
-          - equal( res.json[ 0 ].name, 'kathi' )
-          - vars.petId = res.json[ 0 ].id
+            - auth( 'apiKey', vars.auth.myApiKey )
+            - equal( authOptions.headers[ 'X-Api-Key' ], 1337 )
+            - get()
+            - equal( res.status, 200 )
+            - equal( res.json[ 0 ].name, 'kathi' )
+            - vars.petId = res.json[ 0 ].id
         - description: Re-use a test
           steps:
             $ref: '#/x-tests/0/steps'
+        - description: Should not send ?limit=null in monkeyGet
+          steps:
+            - monkeyAuth()
+            - monkeyGet()
+            - ok( !( "limit" in req.query ) )
+            - validate()
+
     post:
       summary: Create a pet
       operationId: createPets

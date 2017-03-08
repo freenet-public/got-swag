@@ -57,10 +57,10 @@ module.exports = function () {
     } );
 
     app.get( '/v1/pets/:id', function ( req, res, next ) {
-      if ( req.params.id === 'gimme5' ) return res.status( 500 ).json( {
+      /*if ( req.params.id === 'gimme5' ) return res.status( 500 ).json( {
         code: 500000,
         message: 'My bad'
-      } );
+      } );*/
       var pet = petById( req.params.id );
       if ( !pet ) return res.status( 404 ).json( {
         code: 71,
