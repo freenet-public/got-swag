@@ -165,6 +165,18 @@ paths:
             - log( data.number )
             - ok( data.number < 4 )
 
+  /recursive:
+    get:
+      responses:
+        200:
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Node'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
 definitions:
   Pet:
     required:
@@ -188,6 +200,18 @@ definitions:
     example:
       - { "id": 666, "name": "Beast" }
       - { "id": 27, "name": "Bolero" }
+  Node:
+    required:
+      - id
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 4
+      children:
+        type: array
+        items:
+          $ref: '#/definitions/Node'
   Error:
     required:
       - code

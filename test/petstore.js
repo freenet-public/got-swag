@@ -1,5 +1,6 @@
 var express = require( 'express' );
 var middleware = require( 'swagger-express-middleware' );
+var parser = require( 'json-schema-ref-parser' );
 
 module.exports = function () {
 
@@ -8,6 +9,14 @@ module.exports = function () {
   middleware( 'test/petstore.yaml', app, function ( err, middleware ) {
 
     if ( err ) return app.emit( 'error', err );
+
+    // swagger-express-middleware cant deal with recursive models
+    // export api docs manually
+    app.get( '/api-docs', function ( req, res, next ) {
+      parser.bundle( 'test/petstore.yaml' ).then( function ( api ) {
+        res.json( api );
+      } ).catch( next );
+    } );
 
     app.use(
       middleware.metadata(),
@@ -69,7 +78,12 @@ module.exports = function () {
       res.json( pet );
     } );
 
+    app.get( '/v1/recursive', function ( req, res, next ) {
+      res.json( { id: 4, children: [ { id: 5 }, { id: 6 } ] } );
+    } );
+
     app.use( function ( err, req, res, next ) {
+      console.log( err.stack );
       res.status( err.status || 500 ).json( { code: 3, message: err.message } );
     } );
 
@@ -80,5 +94,3 @@ module.exports = function () {
   return app;
 
 };
-
-//module.exports( 8000 );
