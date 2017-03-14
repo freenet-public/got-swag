@@ -176,6 +176,18 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/Error'
+  /not-for-monkeys:
+    get:
+      x-monkey-ignore: true
+      responses:
+        200:
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Node'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
 
 definitions:
   Pet:
