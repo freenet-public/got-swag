@@ -21,7 +21,7 @@
     steps:
       - get( '/v2/pet/findByStatus?status=available' )
       - log( res.json[ 0 ] )
-      - equal( res.status, 200 )
+      - equal( res.statusCode, 200 )
       - ok( res.json.length > 0 )
       - equal( typeof res.json[ 0 ].name, 'string' )
       - validate()

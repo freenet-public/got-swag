@@ -7,7 +7,7 @@ x-tests:
     steps:
       - auth( 'mashape', vars.auth.mashape )
       - get( 'https://yoda.p.mashape.com/yoda?sentence=Hello' )
-      - equal( res.status, 200 )
+      - equal( res.statusCode, 200 )
 
   - description: Check if it's really Yoda
     cases:

@@ -20,6 +20,10 @@ x-tests:
   - description: Setup
     steps:
       - vars.test = 'test'
+  - description: Validate
+    steps:
+      - |
+        validate( { foo: 42 }, { type: 'object', properties: { foo: { type: 'int' } } } )
 paths:
   /pets:
     get:
@@ -65,7 +69,7 @@ paths:
             - get()
             - validate()
             - match( req.headers.Authorization, /^Bearer/ )
-            - equal( res.status, 200 )
+            - equal( res.statusCode, 200 )
             - equal( res.json[ 0 ].name, 'kathi' )
             - vars.petId = res.json[ 0 ].id
         - description: Get as customer
@@ -73,7 +77,7 @@ paths:
             - auth( 'customer', vars.auth.myPassword )
             - match( authOptions.headers.Authorization, /^Bearer/ )
             - get()
-            - equal( res.status, 200 )
+            - equal( res.statusCode, 200 )
             - equal( res.json[ 0 ].name, 'kathi' )
             - vars.petId = res.json[ 0 ].id
         - description: Get with API key
@@ -81,7 +85,7 @@ paths:
             - auth( 'apiKey', vars.auth.myApiKey )
             - equal( authOptions.headers[ 'X-Api-Key' ], 1337 )
             - get()
-            - equal( res.status, 200 )
+            - equal( res.statusCode, 200 )
             - equal( res.json[ 0 ].name, 'kathi' )
             - vars.petId = res.json[ 0 ].id
         - description: Re-use a test
@@ -119,12 +123,12 @@ paths:
         - steps:
             - auth( 'basic', vars.auth.myBasic )
             - post( null, vars.katie )
-            - equal( res.status, 201 )
+            - equal( res.statusCode, 201 )
             - validate()
         - steps:
             - post( null, vars.badKitty )
             - log( res )
-            - equal( res.status, 400 )
+            - equal( res.statusCode, 400 )
             - validate()
 
   /pets/{petId}:

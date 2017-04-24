@@ -68,9 +68,9 @@ For example, see [petstore.yaml](examples/petstore.yaml) (embedded) and
 ### Validation
 
 - `validate( data, schema )`
-  - Validate JSON data against a JSON schema
-  - If `data` or `schema` are omitted, the last response is validated against
-    the current operation's response schema
+  - Validate JSON data against a [JSON schema](http://json-schema.org/)
+  - If `data` or `schema` are omitted (strictly equal to `undefined`),
+    the last response is validated against the current operation's response schema
 
 ### Requests
 
@@ -107,7 +107,7 @@ For example, see [petstore.yaml](examples/petstore.yaml) (embedded) and
   - You can write to `vars` in test steps, see example
 - `req`: Last request data
 - `res`: Last response data
-  - `res.status`: Integer response status code
+  - `res.statusCode`: Integer response status code
   - `res.headers`: Response headers
   - `res.body`: String response body
   - `res.json`: Parsed JSON response, if any

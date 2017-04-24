@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.5
+
+- Fix #12
+- Use `res.statusCode` consistently
+  - `res.status` still works
+
 ## v1.1.4
 
 - Add `x-monkey-ignore`
