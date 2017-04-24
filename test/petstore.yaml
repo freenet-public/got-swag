@@ -22,8 +22,13 @@ x-tests:
       - vars.test = 'test'
   - description: Validate
     steps:
-      - |
-        validate( { foo: 42 }, { type: 'object', properties: { foo: { type: 'int' } } } )
+      - "validate( { foo: 42 }, { type: 'object', properties: { foo: { type: 'int' } } } )"
+  - description: Request
+    steps:
+      - "request( { host: 'testlul' } ).catch( function () {} )"
+      - equal( req.hostname, 'testlul' )
+      - "request( { hostname: 'testwat' } ).catch( function () {} )"
+      - equal( req.hostname, 'testwat' )
 paths:
   /pets:
     get:

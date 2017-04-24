@@ -5,6 +5,7 @@
 - Fix #12
 - Use `res.statusCode` consistently
   - `res.status` still works
+- Fix #9
 
 ## v1.1.4
 
