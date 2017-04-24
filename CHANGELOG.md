@@ -7,6 +7,7 @@
   - `res.status` still works
 - Fix #9, `host` is rewritten to `hostname` consistently
 - Fix #14, parse and use Mocha command-line options, e.g. `reporter`, `slow`, ...
+- Fix `log`, logged data should not show up in report
 
 ## v1.1.4
 
