@@ -21,6 +21,8 @@ Options:
   -w, --watch         Watch the Swagger files and rerun tests on changes
 ```
 
+Most Mocha options are valid. See https://mochajs.org/#usage for details.
+
 
 ## Monkey Testing
 

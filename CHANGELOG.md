@@ -2,10 +2,11 @@
 
 ## v1.1.5
 
-- Fix #12
+- Fix #12, `validate` now works without operation context
 - Use `res.statusCode` consistently
   - `res.status` still works
-- Fix #9
+- Fix #9, `host` is rewritten to `hostname` consistently
+- Fix #14, parse and use Mocha command-line options, e.g. `reporter`, `slow`, ...
 
 ## v1.1.4
 
