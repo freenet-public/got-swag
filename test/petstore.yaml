@@ -25,10 +25,13 @@ x-tests:
       - "validate( { foo: 42 }, { type: 'object', properties: { foo: { type: 'int' } } } )"
   - description: Request
     steps:
+      - oldTrace = trace;
+      - trace = true
       - "request( { host: 'testlul' } ).catch( function () {} )"
       - equal( req.hostname, 'testlul' )
       - "request( { hostname: 'testwat' } ).catch( function () {} )"
       - equal( req.hostname, 'testwat' )
+      - trace = oldTrace
 paths:
   /pets:
     get:

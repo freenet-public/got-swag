@@ -14,10 +14,12 @@ got-swag <url> ... [-m] [-t <ms>] [-T] [-v] [-w]
 
 Options:
   -m, --monkey        Run monkey tests on GET endpoints
+  -l, --monkey-limit  Maximum number of parameter combinations for each
+                      monkey GET, default is 50
   -t, --timeout <ms>  Set a timeout (in milliseconds) for test step execution,
                       default is 2000 ms
-  -T, --trace         Trace: Log vars, requests and responses after each step
-  -v, --version       Show version
+  -T, --trace         Trace: Log requests and responses
+  -V, --version       Show version
   -w, --watch         Watch the Swagger files and rerun tests on changes
 ```
 

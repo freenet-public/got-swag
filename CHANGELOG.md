@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.1.5
+## v1.2.0
 
 - Fix #12, `validate` now works without operation context
 - Use `res.statusCode` consistently
@@ -8,6 +8,12 @@
 - Fix #9, `host` is rewritten to `hostname` consistently
 - Fix #14, parse and use Mocha command-line options, e.g. `reporter`, `slow`, ...
 - Fix `log`, logged data should not show up in report
+- Tracing now dumps request/response/error triples for each request
+- Monkey tests only dump the last request
+  - Fix #13
+  - More data may be dumped with the `--trace` option
+- Monkey tests are now default limited to 50 candidates per endpoint
+  - Limit is configurable with `-l <n>` or `--monkey-limit <n>`
 
 ## v1.1.4
 
