@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.0.0-beta
+
+- Complete rewrite
+- Drop custom tests
+- Improve monkey tests
+- Use custom, request-oriented reports
+- Add HTML reports
+
 ## v1.2.0
 
 - Fix #12, `validate` now works without operation context
