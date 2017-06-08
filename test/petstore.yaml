@@ -9,29 +9,6 @@ consumes:
   - application/json
 produces:
   - application/json
-x-vars:
-  katie:
-    id: 999
-    name: Katie
-    age: 3y
-  badKitty:
-    willBiteYou: true
-x-tests:
-  - description: Setup
-    steps:
-      - vars.test = 'test'
-  - description: Validate
-    steps:
-      - "validate( { foo: 42 }, { type: 'object', properties: { foo: { type: 'int' } } } )"
-  - description: Request
-    steps:
-      - oldTrace = trace;
-      - trace = true
-      - "request( { host: 'testlul' } ).catch( function () {} )"
-      - equal( req.hostname, 'testlul' )
-      - "request( { hostname: 'testwat' } ).catch( function () {} )"
-      - equal( req.hostname, 'testwat' )
-      - trace = oldTrace
 paths:
   /pets:
     get:
@@ -69,43 +46,6 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/Error'
-      x-tests:
-        - description: Get as app
-          steps:
-            - auth( 'app', vars.auth.myApp )
-            - match( authOptions.headers.Authorization, /^Bearer/ )
-            - get()
-            - validate()
-            - match( req.headers.Authorization, /^Bearer/ )
-            - equal( res.statusCode, 200 )
-            - equal( res.json[ 0 ].name, 'kathi' )
-            - vars.petId = res.json[ 0 ].id
-        - description: Get as customer
-          steps:
-            - auth( 'customer', vars.auth.myPassword )
-            - match( authOptions.headers.Authorization, /^Bearer/ )
-            - get()
-            - equal( res.statusCode, 200 )
-            - equal( res.json[ 0 ].name, 'kathi' )
-            - vars.petId = res.json[ 0 ].id
-        - description: Get with API key
-          steps:
-            - auth( 'apiKey', vars.auth.myApiKey )
-            - equal( authOptions.headers[ 'X-Api-Key' ], 1337 )
-            - get()
-            - equal( res.statusCode, 200 )
-            - equal( res.json[ 0 ].name, 'kathi' )
-            - vars.petId = res.json[ 0 ].id
-        - description: Re-use a test
-          steps:
-            $ref: '#/x-tests/0/steps'
-        - description: Should not send ?limit=null in monkeyGet
-          steps:
-            - monkeyAuth()
-            - monkeyGet()
-            - ok( !( "limit" in req.query ) )
-            - validate()
-
     post:
       summary: Create a pet
       operationId: createPets
@@ -127,17 +67,6 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/Error'
-      x-tests:
-        - steps:
-            - auth( 'basic', vars.auth.myBasic )
-            - post( null, vars.katie )
-            - equal( res.statusCode, 201 )
-            - validate()
-        - steps:
-            - post( null, vars.badKitty )
-            - log( res )
-            - equal( res.statusCode, 400 )
-            - validate()
 
   /pets/{petId}:
     get:
@@ -165,17 +94,6 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/Error'
-      x-tests:
-        - cases:
-            - description: One
-              number: 1
-            - description: Two
-              number: 2
-            - number: 3
-          steps:
-            - equal( vars.test, 'test' )
-            - log( data.number )
-            - ok( data.number < 4 )
 
   /recursive:
     get:
@@ -188,6 +106,7 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/Error'
+
   /not-for-monkeys:
     get:
       x-monkey-ignore: true

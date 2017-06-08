@@ -5,7 +5,21 @@ describe( 'The monkeyRequest function', function () {
 
   var api;
   var auth;
-  var memory = {};
+  var memory = {
+    petstore_auth: [
+      {
+        username: 'me',
+        password: 'secret',
+        key: 'special-key',
+        secret: 'none'
+      }
+    ],
+    api_key: [
+      {
+        key: 'special-key'
+      }
+    ]
+  };
 
   before( function () {
     return parser.dereference( 'http://petstore.swagger.io/v2/swagger.json' )
