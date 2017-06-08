@@ -4,6 +4,7 @@ A tool to test Swagger-powered APIs automatically through monkey testing.
 Includes command-line, web-based and programmatic interfaces.
 Install via `npm install got-swag -g`.
 
+
 ## Usage
 
 ```
@@ -14,8 +15,6 @@ Options:
   -S
   -V, --version       Show version
 ```
-
-Most Mocha options are valid. See https://mochajs.org/#usage for details.
 
 
 ## Monkey Testing
