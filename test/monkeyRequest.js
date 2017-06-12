@@ -11,7 +11,8 @@ describe( 'The monkeyRequest function', function () {
         username: 'me',
         password: 'secret',
         key: 'special-key',
-        secret: 'none'
+        secret: 'none',
+        redirect: 'http://localhost:8000'
       }
     ],
     api_key: [
