@@ -1,10 +1,10 @@
+var assert = require( 'assert' );
 var parser = require( 'json-schema-ref-parser' );
 var gotSwag = require( '../' );
 
 describe( 'The auth function', function () {
 
   var api;
-  var auth;
   var credentials = {
     petstore_auth: {
       username: 'me',
@@ -27,15 +27,14 @@ describe( 'The auth function', function () {
 
   this.timeout( 10000 );
 
-  it( 'authenticate via the OAuth 2.0 implicit flow', function ( done ) {
+  it( 'should retrieve a token via the OAuth 2.0 implicit flow', function ( done ) {
 
     gotSwag.auth( {
       api: api,
       id: 'petstore_auth',
       credentials: credentials.petstore_auth
-    } ).on( 'auth', function ( auth_ ) {
-      auth = auth_;
-      console.log( auth );
+    } ).on( 'auth', function ( auth ) {
+      assert.ok( auth.headers.Authorization.match( /Bearer\s+/ ) );
       done();
     } ).on( 'error', done );
 
