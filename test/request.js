@@ -1,36 +1,53 @@
 var assert = require( 'assert' );
 var request = require( '../lib/request' );
-var buffer = require( '../lib/buffer' );
-var withApp = require( './withApp' );
-var petstore = require( './petstore' );
+var bufferResponse = require( '../lib/bufferResponse' );
 
 describe( 'The request function', function () {
 
-  withApp( petstore, 8002 );
-
-  it( 'should POST data', function ( done ) {
-    request( {
-      method: 'POST',
-      url: 'http://localhost:8002/v1/pets',
-      data: '{"id":1,"name":"lol"}',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    } ).then( buffer ).then( function ( res ) {
-      var json = JSON.parse( res.buffer );
-      assert.equal( json.code, 73 );
-    } ).then( done, done );
-  } );
-
   it( 'should GET', function ( done ) {
+
     request( {
       method: 'GET',
-      url: 'http://localhost:8002/v1/pets/{petId}'
-    } ).then( buffer ).then( function ( res ) {
-      var json = JSON.parse( res.buffer );
-      assert.equal( res.statusCode, 404 );
-      assert.equal( json.code, 71 );
-    } ).then( done, done );
+      url: 'http://petstore.swagger.io/v2/pet/findByStatus?status=pending',
+      headers: {
+        accept: 'application/json'
+      }
+    } ).on( 'response', function ( res ) {
+
+      bufferResponse( res ).on( 'json', function ( data ) {
+        assert.ok( data.length > 0 );
+        done();
+      } ).on( 'error', done );
+
+    } ).on( 'error', done );
+
+  } );
+
+  it( 'should follow redirects', function ( done ) {
+
+    var redirects = 0;
+
+    request( {
+      url: 'http://google.com'
+    } ).on( 'redirect', function ( res ) {
+
+      assert.ok( res.statusCode >= 300 );
+      assert.ok( res.statusCode < 400 );
+      ++redirects;
+
+    } ).on( 'final-response', function ( res ) {
+
+      assert.ok( redirects > 0 );
+      assert.ok( res.statusCode >= 200 );
+      assert.ok( res.statusCode < 300 );
+
+      bufferResponse( res ).on( 'string', function ( html ) {
+        assert.ok( html.match( /<!doctype html>/i ) );
+        done();
+      } ).on( 'error', done );
+
+    } ).on( 'error', done );
+
   } );
 
 } );
