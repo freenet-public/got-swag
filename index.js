@@ -3,6 +3,7 @@ module.exports = {
   monkeyAuth: require( './lib/monkeyAuth' ),
   monkeyRequest: require( './lib/monkeyRequest' ),
   scanApiVars: require( './lib/scanApiVars' ),
+  annotateApi: require( './lib/annotateApi' ),
   auth: require( './lib/auth' ),
   apiRequest: require( './lib/apiRequest' ),
   dispatch: require( './lib/dispatch' ),

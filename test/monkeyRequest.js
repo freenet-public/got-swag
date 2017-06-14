@@ -1,7 +1,9 @@
 var parser = require( 'json-schema-ref-parser' );
-var gotSwag = require( '../' );
+var $ = require( '../' );
 
 describe( 'The monkeyRequest function', function () {
+
+  this.timeout( 10000 );
 
   var api;
   var auth;
@@ -25,33 +27,38 @@ describe( 'The monkeyRequest function', function () {
   before( function () {
     return parser.dereference( 'http://petstore.swagger.io/v2/swagger.json' )
       .then( function ( api_ ) {
-        api = api_;
-        gotSwag.scanApiVars( api, memory );
+        api = $.annotateApi( api_ );
+        $.scanApiVars( api, memory );
       } );
   } );
 
-  before( function () {
-    return gotSwag.monkeyAuth( {
+  before( function ( done ) {
+    $.monkeyAuth( {
       api: api,
-      method: 'get',
-      path: '/pet/findByStatus',
+      operationId: 'findPetsByStatus',
       memory: memory
-    } ).then( function ( auth_ ) {
+    } ).on( 'auth', function ( auth_ ) {
+      console.log( auth_ );
       auth = auth_;
-      console.log( auth );
-    } );
+      done();
+    } ).on( 'error', done );
   } );
 
-  it( 'should run a randomized GET request', function () {
+  it( 'should run a randomized GET request', function ( done ) {
 
-    return gotSwag.monkeyRequest( {
+    var options = $.monkeyRequest( {
       api: api,
-      method: 'get',
-      path: '/pet/findByStatus',
-      memory: memory
-    } ).then( function ( pair ) {
-      console.log( pair.req, pair.res.json );
+      operationId: 'findPetsByStatus',
+      memory: memory,
+      auth: auth
     } );
+
+    console.log( options );
+
+    $.request( options ).on( 'final-response', function ( res ) {
+      console.log( res.statusCode );
+      done();
+    } ).on( 'error', done );
 
   } );
 
