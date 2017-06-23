@@ -8,5 +8,5 @@ module.exports = {
   apiRequest: require( './lib/apiRequest' ),
   dispatch: require( './lib/dispatch' ),
   request: require( './lib/request' ),
-  on: require( './lib/on' )
+  once: require( './lib/once' )
 };
