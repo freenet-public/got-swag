@@ -1,21 +1,27 @@
 var parser = require( 'json-schema-ref-parser' );
 var gotSwag = require( '../' );
+var withApp = require( './withApp' );
+var petstore = require( './petstore' );
+var oauth2 = require( './oauth2' );
 
 describe( 'The monkeyRequest function', function () {
 
   this.timeout( 10000 );
 
+  withApp( petstore, 8000 );
+  withApp( oauth2, 8001 );
+
   var api;
   var auth;
   var memory = {
-    petstore_auth: [
+    customer: [
       {
-        username: 'me',
-        password: 'secret',
-        key: 'special-key',
-        secret: 'none',
-        redirect: 'http://localhost:8000'
-      }
+        username: 'basil',
+        password: 'smash',
+        client_id: 'siegmeyer',
+        client_secret: 'catarina',
+        redirect_uri: 'http://localhost:8000'
+      },
     ],
     api_key: [
       {
@@ -25,17 +31,19 @@ describe( 'The monkeyRequest function', function () {
   };
 
   before( function () {
-    return parser.dereference( 'http://petstore.swagger.io/v2/swagger.json' )
+    return parser.dereference( 'http://localhost:8000/api-docs' )
       .then( function ( api_ ) {
         api = gotSwag.annotateApi( api_ );
+        api.host = 'localhost:8000';
         gotSwag.scanApiVars( api, memory );
+        console.log( memory );
       } );
   } );
 
   before( function ( done ) {
     gotSwag.monkeyAuth( {
       api: api,
-      operationId: 'findPetsByStatus',
+      operationId: 'getPetsId',
       memory: memory
     } ).on( 'auth', function ( auth_ ) {
       console.log( auth_ );
@@ -48,7 +56,7 @@ describe( 'The monkeyRequest function', function () {
 
     var options = gotSwag.monkeyRequest( {
       api: api,
-      operationId: 'findPetsByStatus',
+      operationId: 'getPetsId',
       memory: memory,
       auth: auth
     } );

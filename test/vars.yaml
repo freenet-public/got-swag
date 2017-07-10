@@ -1,15 +1,16 @@
 x-vars:
   auth:
     myApp:
-      key: siegmeyer
-      secret: catarina
+      client_id: siegmeyer
+      client_secret: catarina
     myPassword:
-      key: siegmeyer
-      secret: catarina
+      client_id: siegmeyer
+      client_secret: catarina
       username: basil
       password: smash
+      redirect_uri: http://localhost:8000
     myApiKey:
-      key: 1337
+      client_id: 1337
     myBasic:
       username: basil
       password: smash

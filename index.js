@@ -4,6 +4,8 @@ module.exports = {
   monkeyRequest: require( './lib/monkeyRequest' ),
   scanApiVars: require( './lib/scanApiVars' ),
   annotateApi: require( './lib/annotateApi' ),
+  findOperation: require( './lib/findOperation' ),
+  scanVars: require( './lib/scanVars' ),
   auth: require( './lib/auth' ),
   apiRequest: require( './lib/apiRequest' ),
   dispatch: require( './lib/dispatch' ),

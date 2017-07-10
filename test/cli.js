@@ -21,7 +21,7 @@ describe( 'The got-swag cli', function () {
 
   it( 'should show its version', function () {
 
-    return gotSwag.dispatch( [ '-v' ] ).then( function ( output ) {
+    return gotSwag.dispatch( [ '-V' ] ).then( function ( output ) {
       assert.ok( output.match( /\d\.\d\.\d/ ) );
     } );
 

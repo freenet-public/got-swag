@@ -68,10 +68,10 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
-  /pets/{petId}:
+  /pets/{id}:
     get:
       summary: Info for a specific pet
-      operationId: showPetById
+      #operationId: showPetById
       tags:
         - pets
       security:
@@ -80,7 +80,7 @@ paths:
         - apiKey: []
         - basic: []
       parameters:
-        - name: petId
+        - name: id
           in: path
           required: true
           description: The id of the pet to retrieve
@@ -109,6 +109,7 @@ paths:
 
   /not-for-monkeys:
     get:
+      operationId: notForMonkeys
       x-monkey-ignore: true
       responses:
         200:
@@ -176,6 +177,15 @@ securityDefinitions:
   customer:
     type: oauth2
     flow: password
+    tokenUrl: http://localhost:8001/v1/oauth2/token
+  web:
+    type: oauth2
+    flow: implicit
+    authorizationUrl: http://localhost:8001/v1/oauth2/authorize
+  secure:
+    type: oauth2
+    flow: accessCode
+    authorizationUrl: http://localhost:8001/v1/oauth2/authorize
     tokenUrl: http://localhost:8001/v1/oauth2/token
   apiKey:
     type: apiKey

@@ -29,7 +29,9 @@ module.exports = function () {
     var pets = [
       { id: 1, name: "kathi" },
       { id: 2, name: "george" },
-      { id: 3, name: "bolle" }
+      { id: 3, name: "bolle" },
+      { id: 5, name: "test" },
+      { id: 666, name: "BEAST" }
     ];
 
     function petById( id ) {
