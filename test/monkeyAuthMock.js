@@ -52,7 +52,6 @@ describe( 'The monkeyAuth function', function () {
       operationId: 'getPetsId',
       memory: memory
     } ).on( 'auth', function ( auth ) {
-      console.log( auth );
       assert.ok(
         auth.auth ||
         auth.headers.Authorization && auth.headers.Authorization.match( /Bearer\s+/ ) ||

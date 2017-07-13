@@ -8,7 +8,7 @@ module.exports = {
   scanVars: require( './lib/scanVars' ),
   auth: require( './lib/auth' ),
   apiRequest: require( './lib/apiRequest' ),
-  dispatch: require( './lib/dispatch' ),
+  cli: require( './lib/cli' ),
   request: require( './lib/request' ),
   once: require( './lib/once' )
 };

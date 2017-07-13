@@ -19,12 +19,15 @@ describe( 'The monkey option should run monkey tests', function () {
       //console.log( apis );
     } ).on( 'request', function ( req ) {
       console.log( req );
-    } ).on( 'request-response', function ( req, res ) {
-      console.log( 'REQUEST-RESPONSE', res.json );
+    } ).on( 'request-response', function ( pair ) {
+      console.log( 'REQUEST-RESPONSE', JSON.parse( pair.res.body ) );
     } ).on( 'parse-error', function ( err ) {
       //console.log( err.stack );
     } ).on( 'auth-error', function ( err ) {
 
+    } ).on( 'response-error', function ( err ) {
+      console.log( err.stack );
+      console.log( err.res.body.toString( 'utf-8' ) );
     } ).on( 'request-error', function ( err ) {
       console.log( err.stack );
     } ).on( 'finish', done ).on( 'error', done );

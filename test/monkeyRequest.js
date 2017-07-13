@@ -32,7 +32,7 @@ describe( 'The monkeyRequest function', function () {
       } );
   } );
 
-  before( function ( done ) {
+  it.skip( '(auth)', function ( done ) {
     gotSwag.monkeyAuth( {
       api: api,
       operationId: 'findPetsByStatus',
@@ -41,6 +41,8 @@ describe( 'The monkeyRequest function', function () {
       console.log( auth_ );
       auth = auth_;
       done();
+    } ).on( 'auth-error', function ( err ) {
+      console.log( err.stack );
     } ).on( 'error', done );
   } );
 
@@ -56,7 +58,6 @@ describe( 'The monkeyRequest function', function () {
     console.log( options );
 
     gotSwag.request( options ).on( 'final-response', function ( res ) {
-      console.log( res.statusCode );
       done();
     } ).on( 'error', done );
 

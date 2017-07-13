@@ -36,7 +36,6 @@ describe( 'The monkeyRequest function', function () {
         api = gotSwag.annotateApi( api_ );
         api.host = 'localhost:8000';
         gotSwag.scanApiVars( api, memory );
-        console.log( memory );
       } );
   } );
 
@@ -46,7 +45,6 @@ describe( 'The monkeyRequest function', function () {
       operationId: 'getPetsId',
       memory: memory
     } ).on( 'auth', function ( auth_ ) {
-      console.log( auth_ );
       auth = auth_;
       done();
     } ).on( 'error', done );
@@ -61,10 +59,7 @@ describe( 'The monkeyRequest function', function () {
       auth: auth
     } );
 
-    console.log( options );
-
     gotSwag.request( options ).on( 'final-response', function ( res ) {
-      console.log( res.statusCode );
       done();
     } ).on( 'error', done );
 

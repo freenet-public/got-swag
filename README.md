@@ -11,6 +11,9 @@ Install via `npm install got-swag -g`.
 got-swag <url> ...
   Test a Swagger URL or file (YAML). Additional files are merged.
 
+got-swag serve [<port>]
+  Start a web service
+
 Options:
   -S
   -V, --version       Show version

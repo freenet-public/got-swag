@@ -2,7 +2,4 @@
 
 var gotSwag = require( '../' );
 
-gotSwag.dispatch( process.argv.slice( 2 ) ).catch( function ( err ) {
-  console.error( err.message );
-  process.exit( 1 );
-} );
+gotSwag.cli( process.argv.slice( 2 ) );

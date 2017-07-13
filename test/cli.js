@@ -13,7 +13,7 @@ describe( 'The got-swag cli', function () {
 
   it( 'should show its usage', function () {
 
-    return gotSwag.dispatch( [] ).then( function ( output ) {
+    return gotSwag.cli( [] ).then( function ( output ) {
       assert.ok( output.match( /got-swag/ ) );
     } );
 
@@ -21,7 +21,7 @@ describe( 'The got-swag cli', function () {
 
   it( 'should show its version', function () {
 
-    return gotSwag.dispatch( [ '-V' ] ).then( function ( output ) {
+    return gotSwag.cli( [ '-V' ] ).then( function ( output ) {
       assert.ok( output.match( /\d\.\d\.\d/ ) );
     } );
 
@@ -29,7 +29,7 @@ describe( 'The got-swag cli', function () {
 
   it( 'should report a missing file', function () {
 
-    return gotSwag.dispatch( [ 'evil.yaml', '--no-exit-code' ] ).catch( function ( err ) {
+    return gotSwag.cli( [ 'evil.yaml', '--no-exit-code' ] ).catch( function ( err ) {
       assert.ok( err.message.match( /ENOENT/ ) );
     } );
 
@@ -37,7 +37,7 @@ describe( 'The got-swag cli', function () {
 
   it( 'should report an unknown URL', function () {
 
-    return gotSwag.dispatch( [ 'http://wow.wow.invalidz/api-docs', '--no-exit-code' ] ).catch( function ( err ) {
+    return gotSwag.cli( [ 'http://wow.wow.invalidz/api-docs', '--no-exit-code' ] ).catch( function ( err ) {
       assert.ok( err.message.match( /ENOTFOUND/ ), err.message );
     } );
 
@@ -45,7 +45,7 @@ describe( 'The got-swag cli', function () {
 
   it( 'should report a second missing file', function () {
 
-    return gotSwag.dispatch( [ 'test/petstore.yaml', 'evil.yaml', '--no-exit-code' ] ).catch( function ( err ) {
+    return gotSwag.cli( [ 'test/petstore.yaml', 'evil.yaml', '--no-exit-code' ] ).catch( function ( err ) {
       assert.ok( err.message.match( /ENOENT/ ), err.message );
     } );
 
@@ -53,7 +53,7 @@ describe( 'The got-swag cli', function () {
 
   it( 'should run the petstore tests', function () {
 
-    return gotSwag.dispatch( [ 'http://127.0.0.1:8000/api-docs', 'test/vars.yaml', '--no-exit-code', '-t', 1000 ] );
+    return gotSwag.cli( [ 'http://127.0.0.1:8000/api-docs', 'test/vars.yaml', '--no-exit-code', '-t', 1000 ] );
 
   } );
 
