@@ -1,6 +1,8 @@
 var assert = require( 'assert' );
 var request = require( '../lib/request' );
-var bufferResponse = require( '../lib/bufferResponse' );
+var buffer = require( '../lib/buffer' );
+
+// TODO need more tests
 
 describe( 'The request function', function () {
 
@@ -11,14 +13,11 @@ describe( 'The request function', function () {
       url: 'http://petstore.swagger.io/v2/pet/findByStatus?status=pending',
       headers: {
         accept: 'application/json'
-      }
-    } ).on( 'response', function ( res ) {
-
-      bufferResponse( res ).on( 'json', function ( data ) {
-        assert.ok( data.length > 0 );
-        done();
-      } ).on( 'error', done );
-
+      },
+      buffer: true
+    } ).on( 'final-body', function ( res ) {
+      assert.ok( JSON.parse( res.body ).length > 0 );
+      done();
     } ).on( 'error', done );
 
   } );
@@ -27,9 +26,7 @@ describe( 'The request function', function () {
 
     var redirects = 0;
 
-    request( {
-      url: 'http://google.com'
-    } ).on( 'redirect', function ( res ) {
+    request( 'http://google.com' ).on( 'redirect', function ( res ) {
 
       assert.ok( res.statusCode >= 300 );
       assert.ok( res.statusCode < 400 );
@@ -41,10 +38,10 @@ describe( 'The request function', function () {
       assert.ok( res.statusCode >= 200 );
       assert.ok( res.statusCode < 300 );
 
-      bufferResponse( res ).on( 'string', function ( html ) {
-        assert.ok( html.match( /<!doctype html>/i ) );
-        done();
-      } ).on( 'error', done );
+    } ).on( 'final-body', function ( res ) {
+
+      assert.ok( res.body.toString( 'utf-8' ).match( /<!doctype html>/i ) );
+      done();
 
     } ).on( 'error', done );
 
