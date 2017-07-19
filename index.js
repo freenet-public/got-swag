@@ -2,6 +2,7 @@ module.exports = {
   monkeyTest: require( './lib/monkeyTest' ),
   monkeyAuth: require( './lib/monkeyAuth' ),
   monkeyRequest: require( './lib/monkeyRequest' ),
+  monkeyParameter: require( './lib/monkeyParameter' ),
   scanApiVars: require( './lib/scanApiVars' ),
   annotateApi: require( './lib/annotateApi' ),
   findOperation: require( './lib/findOperation' ),

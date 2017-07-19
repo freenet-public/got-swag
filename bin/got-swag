@@ -1,5 +1,3 @@
 #!/usr/bin/env node
 
-var gotSwag = require( '../' );
-
-gotSwag.cli( process.argv.slice( 2 ) );
+require( '../' ).cli( process.argv.slice( 2 ) );

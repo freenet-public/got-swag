@@ -2,6 +2,7 @@ var gotSwag = require ( '../' );
 var withApp = require( './withApp' );
 var petstore = require( './petstore' );
 var oauth2 = require( './oauth2' );
+var assert = require( 'assert' );
 
 describe( 'The monkey option should run monkey tests', function () {
 
@@ -30,7 +31,11 @@ describe( 'The monkey option should run monkey tests', function () {
       console.log( err.res.body.toString( 'utf-8' ) );
     } ).on( 'request-error', function ( err ) {
       console.log( err.stack );
-    } ).on( 'finish', done ).on( 'error', done );
+    } ).on( 'finish', function ( report ) {
+      assert.ok( report.successCount > 0 );
+      assert.equal( report.errorCount, 0 );
+      done();
+    } ).on( 'error', done );
   } );
 
 } );
