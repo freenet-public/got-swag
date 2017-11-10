@@ -102,6 +102,9 @@ For example, see [petstore.yaml](examples/petstore.yaml) (embedded) and
 
 - `encodeURIComponent( s )` encodes a string for URI transmission
 - `log( value )` logs a value
+- `stringify( value )` alias of JSON.stringify
+- `parse( string )` alias of JSON.parse
+- `byteLength( string )` alias of Buffer.byteLength for computing 'Content-Length' header manually 
 - `monkeyAuth()` tries to authenticate using known method/credentials
 - `monkeyGet()` tries to GET using known parameters
 
