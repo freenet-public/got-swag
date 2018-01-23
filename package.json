@@ -13,6 +13,8 @@
     "test": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha test"
   },
   "dependencies": {
+    "chance": "^1.0.13",
+    "js-combinatorics": "^0.5.3",
     "json-schema-ref-parser": "^3.1.2",
     "jsonschema": "^1.1.1",
     "lodash": "^4.17.4",
