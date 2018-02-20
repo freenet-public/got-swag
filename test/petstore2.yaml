@@ -1,5 +1,5 @@
-'#/':
-  $ref: http://localhost:8000/api-docs
+#'#/':
+#  $ref: http://localhost:8000/api-docs
 '#/host': localhost:8000
 '#/x-vars/george':
   id: 73
