@@ -53,7 +53,7 @@ describe( 'The got-swag cli', function () {
 
   it( 'should run the petstore tests', function () {
 
-    return gotSwag.dispatch( [ 'http://127.0.0.1:8000/api-docs', 'test/vars.yaml', '--no-exit-code', '-t', 1000 ] );
+    return gotSwag.dispatch( [ 'http://127.0.0.1:8000/api-docs', 'test/vars.yaml', '--no-exit-code', '-t', '-F', 1000 ] );
 
   } );
 
